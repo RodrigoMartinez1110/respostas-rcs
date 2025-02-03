@@ -71,6 +71,9 @@ if uploaded_files:
         lista.append(df_processado)
     
     base = pd.concat(lista)
+
+    bloqueados = base.loc[base['MENSAGEM'] == 'BLOQUEIO', ['NUMERO']].drop_duplicates()
+    responderam = base.loc[base['MENSAGEM'] != 'BLOQUEIO', ['NUMERO']].drop_duplicates()
     
     # Selecionar bloqueados e responderam com o prefixo 55
     bloqueados = base.loc[base['MENSAGEM'] == 'BLOQUEIO', ['NUMERO']]
