@@ -72,6 +72,9 @@ if uploaded_files:
     
     base = pd.concat(lista)
 
+    base['NUMERO'] = base['NUMERO'].astype(str)
+    base['NUMERO'] = base['NUMERO'].astype(str)
+    
     bloqueados = base.loc[base['MENSAGEM'] == 'BLOQUEIO', ['NUMERO']].drop_duplicates()
     responderam = base.loc[base['MENSAGEM'] != 'BLOQUEIO', ['NUMERO']].drop_duplicates()
     
