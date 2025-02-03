@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import unicodedata
 
 st.title("Processador de Respostas RCS")
 
@@ -33,15 +34,23 @@ def processar_arquivo(uploaded_file):
             'pessoa errada', 'nao tem nenhum', 'cancelar', 'cancela', 'n pertence', 
             'nao. sou.', 'mandando errado', 'exclui esse numero', 'nao quero receber mais', 'puta que pariu', 'pariu', 'puta', 'não tenho contato',
             'não mandar mais', 'nao mandar mais', 'esse celular não é', 'encher o saco', 'vai se fuder', 'vsf', 'se fude', 'não quero recebe', 'justiça', 'policia', 'polícia',
-            'denunciar', 'justiça   ', 'justiça', 'meu pau', 'minha pica', 'pika', 'não tem nenhum', 'nao me encha'
+            'denunciar', 'justiça   ', 'justiça', 'meu pau', 'minha pica', 'pika', 'não tem nenhum', 'nao me encha', 'Não sou'
         ]
+
+        def normalizar_texto(texto):
+            # Remove caracteres especiais e normaliza o texto
+            return ''.join(
+                c for c in unicodedata.normalize('NFD', texto)
+                if unicodedata.category(c) != 'Mn'
+            )
         
         def categorizar_resposta(resposta):
-            if pd.isna(resposta):
-                return resposta
-            resposta = resposta.lower().strip()
+            # Normaliza e converte para minúsculas
+            resposta = normalizar_texto(resposta.lower().strip())
+            
             for palavra in palavras_bloqueio:
-                if palavra in resposta:
+                palavra_normalizada = normalizar_texto(palavra)
+                if palavra_normalizada in resposta:
                     return "BLOQUEIO"
             return resposta
         
