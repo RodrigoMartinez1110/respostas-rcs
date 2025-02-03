@@ -15,10 +15,26 @@ def processar_arquivo(uploaded_file):
         chunk = chunk.loc[chunk['STATUS'] == 'RESPONDIDO']
         
         # Lista de palavras para identificar bloqueios
-        palavras_bloqueio = ['não sou', 'nao sou', 'sair', 'bloquear', 'pare', 
-            'não quero', 'vai tomar no', 'foda-se', 'filho da puta', 'desinscrever',
+        palavras_bloqueio = [
+            'não sou', 'nao sou', 'sair', 'bloquear', 'pare', 
+            'não quero', 'vai tomar no', 'foda-se', 'filho da puta', 'desinscrever', 
             'remover', 'descadastrar', 'não me chame', 'não envie', 'não gosto', 'não conheço',
-            'processo', 'denunciar', 'justiça', 'polícia', 'morreu', 'cancelar', 'cancela', 'obito']
+            'eu nao sou', 'eu n sou', 'n sou', 'processo', 'processar', 'proceso', 'denunciar', 
+            'descadastr', 'nao sei quem', 'incomoda', 'bloqueio', 'bloqueiar', 'block', 'engano', 
+            'nao é', 'não é', 'voce poderia me fazer um grande favor', 'nao me chamo', 
+            'can you help me out?', 'caralho', 'krl', 'kct', 'cacete', 'porra', 'fdp', 'desgraca', 
+            'buceta', 'poha', 'filha da puta', 'filho da puta', 'fodase', 'foda', 'fds', 'puta', 
+            'viado', 'cu', 'nao sei que', 'nao sei quem e', 'não conheço', 'nao conheco', 
+            'merda', '190', 'tmnc', 'para de mandar', 'nao param de mandar mensagem', 
+            'nome nao e', 'vai tomar n', 'esse numero nao e', 'não é o celular', 'nao sou',
+            'me esquece', 'judicial', 'numero nao pertence', 'nao e de', 
+            'mensagem para a pessoa errada', 'nao pertence', 'nunca foi', 
+            'morreu', 'obito', 'telefone nao e', 'nao existe', 'nao tem ninguem', 
+            'pessoa errada', 'nao tem nenhum', 'cancelar', 'cancela', 'n pertence', 
+            'nao. sou.', 'mandando errado', 'exclui esse numero', 'nao quero receber mais', 'puta que pariu', 'pariu', 'puta', 'não tenho contato',
+            'não mandar mais', 'nao mandar mais', 'esse celular não é', 'encher o saco', 'vai se fuder', 'vsf', 'se fude', 'não quero recebe', 'justiça', 'policia', 'polícia',
+            'denunciar', 'justiça   ', 'justiça', 'meu pau', 'minha pica', 'pika', 'não tem nenhum', 'nao me encha'
+        ]
         
         def categorizar_resposta(resposta):
             if pd.isna(resposta):
