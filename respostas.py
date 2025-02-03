@@ -71,16 +71,9 @@ if uploaded_files:
         lista.append(df_processado)
     
     base = pd.concat(lista)
-
-    base['NUMERO'] = base['NUMERO'].astype(str)
-    base['NUMERO'] = base['NUMERO'].astype(str)
     
-    bloqueados = base.loc[base['MENSAGEM'] == 'BLOQUEIO', ['NUMERO']].drop_duplicates()
-    responderam = base.loc[base['MENSAGEM'] != 'BLOQUEIO', ['NUMERO']].drop_duplicates()
-    
-    # Selecionar bloqueados e responderam com o prefixo 55
-    bloqueados = base.loc[base['MENSAGEM'] == 'BLOQUEIO', ['NUMERO']]
-    responderam = base.loc[base['MENSAGEM'] != 'BLOQUEIO', ['NUMERO']]
+    bloqueados = base.loc[base['MENSAGEM'] == 'BLOQUEIO', ['NUMERO']].astype(str).drop_duplicates()
+    responderam = base.loc[base['MENSAGEM'] != 'BLOQUEIO', ['NUMERO']].astype(str).drop_duplicates()
 
     # Salvar em formato CSV como strings com o prefixo 55
     bloqueados_csv = bloqueados.to_csv(index=False, sep=';', header=['NUMERO'], encoding='utf-8').encode('utf-8')
